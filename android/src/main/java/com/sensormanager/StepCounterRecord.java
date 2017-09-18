@@ -62,15 +62,21 @@ public class StepCounterRecord implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         Sensor mySensor = sensorEvent.sensor;
-		WritableMap map = mArguments.createMap();
+        WritableMap map = mArguments.createMap();
+        long elapseRealtime = SystemClock.elapsedRealtime();;
+        long today = System.currentTimeMillis();
+        long timeReboot = today - elapseRealtime;
+        int steps = (int) sensorEvent.values[0];
 
         if (mySensor.getType() == Sensor.TYPE_STEP_COUNTER) {
             long curTime = System.currentTimeMillis();
             i++;
             if ((curTime - lastUpdate) > delay) {
                 i = 0;
-				map.putDouble("steps", sensorEvent.values[0]);
-				sendEvent("StepCounter", map);
+                map.putDouble("reboot", timeReboot);
+                map.putDouble("today", today);
+                map.putDouble("steps", steps);
+                sendEvent("StepCounter", map);
                 lastUpdate = curTime;
             }
         }
