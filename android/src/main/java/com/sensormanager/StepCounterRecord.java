@@ -1,6 +1,7 @@
 package com.sensormanager;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -11,6 +12,9 @@ import android.support.annotation.Nullable;
 import java.io.*;
 import java.util.Date;
 import java.util.Timer;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.lang.Integer;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
@@ -28,7 +32,6 @@ public class StepCounterRecord implements SensorEventListener {
 
 	private ReactContext mReactContext;
 	private Arguments mArguments;
-
 
     public StepCounterRecord(ReactApplicationContext reactContext) {
         mSensorManager = (SensorManager)reactContext.getSystemService(reactContext.SENSOR_SERVICE);
